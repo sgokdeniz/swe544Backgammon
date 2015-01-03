@@ -1,7 +1,7 @@
 from Tkinter import *
 from tkMessageBox import *
 import socket 
-
+import xml.etree.ElementTree as ET
 
 def callback(usr,ip,port):
     
@@ -13,12 +13,22 @@ def connect(username,ip,sport):
     host = ip 
     port = int(sport) 
     s.connect((host, port))
-    s.sendall('Hello, world')
+    data = clogin(username)
+    s.sendall(data)
     data = s.recv(1024)
     s.close()
     print 'Received', repr(data)
            
+def clogin(username):
+    log = ET.Element("CLOGIN")
+    ET.SubElement(log, "username", usr=username)
+    
    
+    #log.attrib["username"] = username
+   
+    
+    return  ET.tostring(log, encoding='UTF-8')
+
 master = Tk()
 Label(text='Username:').grid(row=0,column=0)
 username=Entry(master)
