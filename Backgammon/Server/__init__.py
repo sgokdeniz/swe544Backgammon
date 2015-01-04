@@ -30,7 +30,7 @@ def srvau(val,game,conn):
         slog = ET.Element("SRVAU")
         ET.SubElement(slog, "username", auth='OK')
         conn.sendall(ET.tostring(slog, encoding='UTF-8'))
-    else:
+    elif(slogin==False):
         slog = ET.Element("SRVAU")
         ET.SubElement(slog, "username", auth='FAIL')
         conn.sendall(ET.tostring(slog, encoding='UTF-8'))

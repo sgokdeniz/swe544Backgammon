@@ -12,8 +12,12 @@ class Game:
             print len(self.userlist)
             return True
         else:
-            
-            for i in self.userlist:
+            if username in self.userlist:
+                return False
+            else:
+                self.userlist.append(username)
+                return True
+            '''for i in self.userlist:
                 
                 
                 if(username==i):
@@ -22,7 +26,7 @@ class Game:
                 else:
                     print i
                     self.userlist.append(username)
-                    return True
+                    return True'''
                
     def getUserlist(self):
         return self.userlist
