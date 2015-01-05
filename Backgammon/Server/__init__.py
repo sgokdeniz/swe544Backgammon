@@ -19,7 +19,17 @@ def protocolSelector(protocol,game,conn):
         for node in a_lst:
             val=node.attrib["usr"]
             print val
-        srvau(val,game,conn)
+            srvau(val,game,conn)
+    elif(xmlelement.tag=="CPLAY"):
+        a_lst = xmlelement.findall("username")
+        val=''
+        for node in a_lst:
+            val=node.attrib["usr"]
+            print val
+            splay(val,game,conn)
+        pass
+    elif(xmlelement.tag=="CWTCH"):
+        pass
         
     
 
@@ -35,6 +45,8 @@ def srvau(val,game,conn):
         ET.SubElement(slog, "username", auth='FAIL')
         conn.sendall(ET.tostring(slog, encoding='UTF-8'))
 
+def splay():
+    pass
 
 HOST = ''                 
 PORT = 8666              

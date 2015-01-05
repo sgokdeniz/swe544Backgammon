@@ -6,6 +6,9 @@ class MainMenu:
     def cplay(self,usr):
         print usr
         pass
+        
+    def splay(self,usr):
+        pass
     
     def __init__(self,username):
         root = Tk()

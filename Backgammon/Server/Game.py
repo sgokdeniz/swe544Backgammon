@@ -17,21 +17,12 @@ class Game:
             else:
                 self.userlist.append(username)
                 return True
-            '''for i in self.userlist:
-                
-                
-                if(username==i):
-                    return False
-                 
-                else:
-                    print i
-                    self.userlist.append(username)
-                    return True'''
-               
+           
     def getUserlist(self):
         return self.userlist
             
-        
+    def delegatePlayer(self):
+        pass    
     
         
         
