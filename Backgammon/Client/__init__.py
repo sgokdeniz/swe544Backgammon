@@ -33,7 +33,7 @@ def connect(username,ip,sport):
             showwarning('Warning','Try another username!!')
         else:
             closeWindow(master)
-            MainMenu(username)   
+            MainMenu(username,ip,sport)   
             
     #print 'Received', repr(data)
            
@@ -56,8 +56,12 @@ username=Entry(master)
 username.grid(row=0,column=1)
 Label(text='IP & Port number:').grid(row=1,column=0)
 ipaddress=Entry(master)
+ipaddress.delete(0, END)
+ipaddress.insert(0, 'localhost')
 ipaddress.grid(row=1,column=1)
 port=Entry(master)
+port.delete(0,END)
+port.insert(0,'8666')
 port.grid(row=1,column=2)
 bt=Button(text='Connect', command=lambda: callback(username.get(),ipaddress.get(),port.get()))
 bt.grid(row=2,column=2)

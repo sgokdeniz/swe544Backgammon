@@ -2,15 +2,15 @@ import socket
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import XML, fromstring, tostring  , parse
 from Game import Game
-
+import threading
 
 global gamex
 
-def protocolSelector(protocol,game,conn):
+def protocolParser(protocol,game,conn):
    
-    
    
     #xmlelement = ET.fromstring(protocol)
+    
     xmlelement=XML(protocol)
     print xmlelement.tag
     if(xmlelement.tag=="CLOGIN"):
@@ -19,15 +19,20 @@ def protocolSelector(protocol,game,conn):
         for node in a_lst:
             val=node.attrib["usr"]
             print val
-            srvau(val,game,conn)
+        threading.Thread(target=srvau(val,game,conn)).start()
+        
     elif(xmlelement.tag=="CPLAY"):
         a_lst = xmlelement.findall("username")
+        print 'a_lst'
         val=''
         for node in a_lst:
             val=node.attrib["usr"]
             print val
-            splay(val,game,conn)
-        pass
+        #=======================================================================
+        # threading.Thread(target=splay(val,game,conn)).start()
+        #=======================================================================
+        splay(val,game,conn)
+        
     elif(xmlelement.tag=="CWTCH"):
         pass
         
@@ -45,8 +50,12 @@ def srvau(val,game,conn):
         ET.SubElement(slog, "username", auth='FAIL')
         conn.sendall(ET.tostring(slog, encoding='UTF-8'))
 
-def splay():
-    pass
+def splay(val,game,conn):
+    print 'oehh'
+    sply=game.delegatePlayer(val)
+    splay = ET.Element("SPLAY")
+    ET.SubElement(splay, "state", game=str(sply))
+    conn.sendall(ET.tostring(splay, encoding='UTF-8'))
 
 HOST = ''                 
 PORT = 8666              
@@ -65,7 +74,7 @@ while True:
         print type(data)
         try:
             print 'dd'
-            a=protocolSelector(data,gamex,conn)
+            a=protocolParser(data,gamex,conn)
             
             print type(conn)
             
