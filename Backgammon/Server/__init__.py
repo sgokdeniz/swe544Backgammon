@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import XML, fromstring, tostring  , parse
 from Game import Game
 import threading
+import random
 
 global gamex
 
@@ -28,15 +29,19 @@ def protocolParser(protocol,game,conn):
         for node in a_lst:
             val=node.attrib["usr"]
             print val
-        #=======================================================================
-        # threading.Thread(target=splay(val,game,conn)).start()
-        #=======================================================================
-        splay(val,game,conn)
+       
+        threading.Thread(target=splay(val,game,conn)).start()
         
-    elif(xmlelement.tag=="CWTCH"):
-        pass
+    elif(xmlelement.tag=="CDICE"):
+        print xmlelement.tag
+        a_lst = xmlelement.findall("username")
         
-    
+        val=''
+        for node in a_lst:
+            val=node.attrib["usr"]
+            print val
+       
+        sdice(val,game,conn)
 
 
 def srvau(val,game,conn):
@@ -51,12 +56,23 @@ def srvau(val,game,conn):
         conn.sendall(ET.tostring(slog, encoding='UTF-8'))
 
 def splay(val,game,conn):
-    print 'oehh'
     sply=game.delegatePlayer(val)
     splay = ET.Element("SPLAY")
-    ET.SubElement(splay, "state", game=str(sply))
+    ET.SubElement(splay, "game", gameId=str(sply))
+    ET.SubElement(splay, "state", play='OPEN')
     conn.sendall(ET.tostring(splay, encoding='UTF-8'))
 
+
+def sdice(val,game,conn):
+    rollx = random.randint(1, 6)
+    rolly = random.randint(1, 6)
+    print rollx
+    sdice = ET.Element("SDICE")
+    ET.SubElement(sdice, "d1", value=str(rollx))
+    ET.SubElement(sdice, "d2", value=str(rolly))
+    ET.SubElement(sdice, "username", value=str(rolly))
+    print sdice
+    conn.sendall(ET.tostring(sdice, encoding='UTF-8'))
 HOST = ''                 
 PORT = 8666              
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

@@ -29,23 +29,15 @@ class Game:
         gameSet=GameDetails(gameNumber,username)
         self.gamelist.append(gameSet)
         
-        
-        print len(self.gamelist)
-        return type(gameSet)
-        #=======================================================================
-        # gameSet=GameDetails(gameNumber,username)
-        # self.gamelist[self.gameNum]=gameSet
-        # self.gameNum=self.gameNum+1
-        # print self.gameNum 
-        #=======================================================================
+        return self.gameNum
               
     def delegatePlayer(self,username):
         
         if(len(self.userlist)%2==1):
-            print 'OKK'
+            print 'Waiting for another user'
             
-            a=self.setupGame(self.gameNum,username)
-            return a
+            gameState=self.setupGame(self.gameNum,username)
+            return gameState
            
         elif(len(self.userlist)==1):
             print 'OK'
