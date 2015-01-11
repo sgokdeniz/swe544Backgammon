@@ -33,7 +33,7 @@ def connect(username,ip,sport):
             showwarning('Warning','Try another username!!')
         else:
             closeWindow(master)
-            MainMenu(username,ip,sport)   
+            MainMenu(username,ip,sport,s)   
             
     #print 'Received', repr(data)
            
