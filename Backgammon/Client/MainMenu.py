@@ -44,7 +44,7 @@ class MainMenu:
                 print val
         self.closeWindow(self.root)
         GameBoard(username,ip,port,val,sock)
-        self.socket.close()
+        
     
     def connect(self,ip,sport):
         s = socket.socket()

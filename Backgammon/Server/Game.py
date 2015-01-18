@@ -43,7 +43,10 @@ class Game:
             print 'OK'
             #----------------------------- self.setupGame(self.gameNum,username)
         else:
-            pass
+            print 'Waiting for '
+            
+            gameState=self.setupGame(self.gameNum,username)
+            return gameState
                 
     
         

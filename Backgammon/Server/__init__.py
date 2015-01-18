@@ -50,7 +50,7 @@ def protocolParser(protocol,game,conn):
         for node in a_lst:
             val=node.attrib["usr"]
             print val
-        srvau(val,game,conn)
+        threading.Thread(target=srvau(val,game,conn)).start()
         
     elif(xmlelement.tag=="CPLAY"):
         a_lst = xmlelement.findall("username")
@@ -60,11 +60,11 @@ def protocolParser(protocol,game,conn):
             val=node.attrib["usr"]
             print val
        
-        splay(val,game,conn)
+        threading.Thread(target=splay(val,game,conn)).start()
         
         
     elif(xmlelement.tag=="CDICE"):
-        print 'ddddddddddddd'
+       
         a_lst = xmlelement.findall("username")
         
         val=''
@@ -72,7 +72,7 @@ def protocolParser(protocol,game,conn):
             val=node.attrib["usr"]
             print val
        
-        sdice(val,game,conn)
+        threading.Thread(target=sdice(val,game,conn)).start()
 
 
 
@@ -95,8 +95,9 @@ while True:
         try:
             print 'Open a thread'
             threading.Thread(target=protocolParser(data,gamex,conn)).start()
-            
-            print type(conn)
+            cur_thread = threading.currentThread()
+            print cur_thread
+            print cur_thread.getName()
             
             #conn.sendall('hell')
             

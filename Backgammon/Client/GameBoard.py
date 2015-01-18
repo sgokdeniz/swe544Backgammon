@@ -22,7 +22,7 @@ class GameBoard:
         xmlelement=ET.XML(data)
         if(xmlelement.tag=="SDICE"):
             a_lst = xmlelement.findall("d1")
-            d1,d2=''
+            d1,d2='',''
             for node in a_lst:
                 d1=node.attrib["value"]
                 print d1
@@ -44,7 +44,7 @@ class GameBoard:
         Label(text=username).grid(row=0,column=1)
         Label(text='Your GameID:').grid(row=0,column=2)
         Label(text=gameId).grid(row=0,column=3)
-        Label(text='Kullanýcý:').grid(row=0,column=4)
+        Label(text='User:').grid(row=0,column=4)
         Label(text=gameId).grid(row=0,column=5)
         btDice=Button(text='Throw dice', command=lambda: self.cdice(username,ip,port,sock))
         btDice.grid(row=1,column=0)
